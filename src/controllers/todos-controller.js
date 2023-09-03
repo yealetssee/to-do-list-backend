@@ -40,7 +40,7 @@ export const deleteTodo = async (req, res) => {
   }
 };
 
-export const deleteCompleteTodos = async (req, res) => {
+export const deleteCompleteTodos = async (_, res) => {
   try {
     await pool.query("DELETE FROM todos WHERE complete=true ");
 
