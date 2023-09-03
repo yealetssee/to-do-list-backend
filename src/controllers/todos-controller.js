@@ -1,3 +1,4 @@
+import { response } from "express";
 import pool from "../config/sql.js";
 
 export const getAllTodos = async (_, response) => {
@@ -21,8 +22,20 @@ export const createTodo = async (req, res) => {
     );
 
     const row = resultQuery.rows[0];
-    return response.status(200).json(row);
+    return res.status(200).json(row);
   } catch (error) {
-    return response.status(401).json(error);
+    return res.status(401).json(error);
+  }
+};
+
+export const deleteTodo = async (req, res) => {
+  const id = +req.params.id;
+
+  try {
+    await pool.query("DELETE FROM todos WHERE id=$1", [id]);
+
+    return res.status(200).json({ message: "Successfully deleted" });
+  } catch (error) {
+    return res.status(401).json(error);
   }
 };
