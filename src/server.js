@@ -1,6 +1,8 @@
 import express, { response } from "express";
 import pool, { createTable } from "./config/sql.js";
 import bodyParser from "body-parser";
+import cors from "cors";
+import todoRouter from "./router/todo-router.js";
 
 const app = express();
 
@@ -14,33 +16,9 @@ const init = async () => {
 
   function startServer() {
     app.use(bodyParser.json());
+    app.use(cors());
 
-    app.get("/api/todos", async (_, response) => {
-      try {
-        const resultQuery = await pool.query("SELECT * FROM todos");
-
-        const rows = resultQuery.rows;
-
-        return response.status(200).json(rows);
-      } catch (error) {
-        return response.status(401).json(error);
-      }
-    });
-
-    app.post("/api/todos", async (req, res) => {
-      const { value, completed } = req.body;
-      try {
-        const resultQuery = await pool.query(
-          "INSERT INTO todos(value, completed) VALUES($1, $2) ",
-          [value, completed],
-        );
-
-        const row = resultQuery.rows[0];
-        return response.status(200).json(row);
-      } catch (error) {
-        return response.status(401).json(error);
-      }
-    });
+    app.use("/api", todoRouter);
     app.listen(3000);
   }
 };
