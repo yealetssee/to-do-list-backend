@@ -42,12 +42,12 @@ export const deleteTodo = async (req, res) => {
 
 export const deleteCompleteTodos = async (_, res) => {
   try {
-    await pool.query("DELETE FROM todos WHERE completed = true ");
+    await pool.query("DELETE FROM todos WHERE completed = 1 ");
 
     return res
       .status(200)
       .json({ message: "All complete todos have been deleted" });
   } catch (error) {
-    return res.status(401).json(error);
+    return res.status(500).json(error);
   }
 };
