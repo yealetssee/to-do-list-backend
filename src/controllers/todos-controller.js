@@ -40,15 +40,38 @@ export const deleteTodo = async (req, res) => {
   }
 };
 
+// export const deleteCompleteTodos = async (_, res) => {
+//   try {
+//     await pool.query("DELETE FROM todos WHERE completed = true ");
+
+//     return res
+//       .status(200)
+//       .json({ message: "All complete todos have been deleted" });
+//   } catch (error) {
+//     return res.status(500).json(error);
+//   }
+// };
+
 export const deleteCompleteTodos = async (_, res) => {
   try {
-    await pool.query("DELETE FROM todos WHERE completed = true ");
+    // Select all completed todos and get their IDs
+    const completedTodoIds = await pool.query(
+      "SELECT id FROM todos WHERE completed = true",
+    );
+
+    // Delete completed todos one by one
+    for (const todoId of completedTodoIds.rows) {
+      await pool.query("DELETE FROM todos WHERE id = $1", [todoId.id]);
+    }
 
     return res
       .status(200)
       .json({ message: "All complete todos have been deleted" });
   } catch (error) {
-    return res.status(500).json(error);
+    console.error("Error deleting complete todos:", error);
+    return res
+      .status(500)
+      .json({ error: "An error occurred while deleting complete todos" });
   }
 };
 
