@@ -86,7 +86,7 @@ export const deleteAllTodos = async (req, res) => {
 
 export const updateTodo = async (req, res) => {
   const { id } = +req.params.id;
-  const { completed } = req.query;
+  const { completed } = req.query.completed;
 
   try {
     const resultQuery = await pool.query(
