@@ -85,7 +85,8 @@ export const deleteAllTodos = async (req, res) => {
 };
 
 export const updateTodo = async (req, res) => {
-  const { id, completed } = req.body;
+  const completed = req.body;
+  const id = +req.params.id;
   try {
     await pool.query("UPDATE todos SET complete=$1 WHERE id=$2", [
       completed,
