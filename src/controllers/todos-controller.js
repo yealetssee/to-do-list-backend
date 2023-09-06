@@ -88,13 +88,12 @@ export const updateTodo = async (req, res) => {
   const { id, completed } = req.body;
 
   try {
-    await pool.query("UPDATE todos SET complete=$1 WHERE id=$2", [
-      completed,
-      id,
-    ]);
-    return res
-      .status(200)
-      .json({ message: "Todo has been successfully updated" });
+    const resultQuery = await pool.query(
+      "UPDATE todos SET complete=$1 WHERE id=$2",
+      [completed, id],
+    );
+    const row = resultQuery.rows[0];
+    return res.status(200).json(row);
   } catch (error) {
     console.error(error);
   }
