@@ -91,5 +91,10 @@ export const updateTodo = async (req, res) => {
       completed,
       id,
     ]);
-  } catch (error) {}
+    return res
+      .status(200)
+      .json({ message: "Todo has been successfully updated" });
+  } catch (error) {
+    console.error(error);
+  }
 };
