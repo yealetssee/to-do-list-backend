@@ -85,16 +85,16 @@ export const deleteAllTodos = async (req, res) => {
 };
 
 export const updateTodo = async (req, res) => {
-  const { id } = +req.params.id;
-  const { completed } = req.query.completed;
+  const id = +req.params.id;
+  const completed = req.query.completed;
 
   try {
     const resultQuery = await pool.query(
       "UPDATE todos SET complete=$1 WHERE id=$2",
       [completed, id],
     );
-    const row = resultQuery.rows[0];
-    return res.status(200).json(row);
+
+    return res.status(200).json(resultQuery.rows);
   } catch (error) {
     console.error(error);
   }
