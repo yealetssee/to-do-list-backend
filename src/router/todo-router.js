@@ -10,9 +10,9 @@ import {
 
 const todoRouter = express.Router();
 
+todoRouter.put("/todos/:id", updateTodo);
 todoRouter.delete("/todos/complete", deleteCompleteTodos);
 // todoRouter.delete("/todos/:id", deleteTodo);
-todoRouter.put("/todos/:id", updateTodo);
 
 todoRouter.delete("/todos", deleteAllTodos);
 
