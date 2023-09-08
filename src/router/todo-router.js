@@ -11,8 +11,8 @@ import {
 const todoRouter = express.Router();
 
 todoRouter.delete("/todos/complete", deleteCompleteTodos);
+todoRouter.put("/todos/update/:id", updateTodo);
 todoRouter.delete("/todos/:id", deleteTodo);
-todoRouter.post("/todos/:id", updateTodo);
 
 todoRouter.delete("/todos", deleteAllTodos);
 
