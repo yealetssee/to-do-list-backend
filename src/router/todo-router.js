@@ -12,7 +12,7 @@ const todoRouter = express.Router();
 
 todoRouter.delete("/todos/complete", deleteCompleteTodos);
 todoRouter.delete("/todos/:id", deleteTodo);
-todoRouter.put("/todos/:id", updateTodo);
+todoRouter.post("/todos/:id", updateTodo);
 
 todoRouter.delete("/todos", deleteAllTodos);
 
