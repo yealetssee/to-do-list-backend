@@ -42,7 +42,7 @@ export const deleteTodo = async (req, res) => {
 
 export const deleteCompleteTodos = async (_, res) => {
   try {
-    await pool.query("DELETE FROM todos WHERE completed = 1 ");
+    await pool.query("DELETE FROM todos WHERE completed = true ");
 
     return res
       .status(200)
