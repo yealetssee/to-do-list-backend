@@ -92,7 +92,7 @@ export const updateTodo = async (req, res) => {
 
   try {
     const resultQuery = await pool.query(
-      "UPDATE todos SET complete=$1 WHERE id=$2",
+      "UPDATE todos SET completed=$1 WHERE id=$2",
       [completed, id],
     );
 
