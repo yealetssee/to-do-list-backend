@@ -1,5 +1,6 @@
 import { response } from "express";
 import pool from "../config/sql.js";
+import { json } from "body-parser";
 
 export const getAllTodos = async (_, response) => {
   try {
@@ -86,7 +87,7 @@ export const deleteAllTodos = async (req, res) => {
 
 export const updateTodo = async (req, res) => {
   const { id } = +req.params;
-  const { completed } = req.body;
+  const completed = JSON.parse(req.body);
   console.log(completed);
   console.log(id);
 
