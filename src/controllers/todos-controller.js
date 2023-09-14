@@ -99,6 +99,7 @@ export const updateTodo = async (req, res) => {
     return res.status(200).json(resultQuery.rows);
   } catch (error) {
     console.error(error);
+    console.log(id, completed);
     return res.status(401).json(error);
   }
 };
